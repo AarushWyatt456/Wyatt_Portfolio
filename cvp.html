@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV – Wai Lin Aung | Web Developer (Marketing Sites)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --accent: #f72585;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            background-color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+            line-height: 1.5;
+            font-size: 13.2px;
+            overflow-x: hidden;
+        }
+
+        /* Floating Action Bar (Hidden when printing) */
+        .top-action-bar {
+            position: sticky;
+            top: 12px;
+            z-index: 999;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(27, 38, 59, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 10px 18px;
+            border-radius: 30px;
+            margin: 12px 10px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .action-btn.mobile-pdf {
+            background: var(--accent);
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .action-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        /* Wrapper for scaling on small screens in Sheet Mode */
+        .scale-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0 40px;
+            transform-origin: top center;
+        }
+
+        .cv-container {
+            background: #ffffff;
+            width: 920px;
+            min-width: 920px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.25s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 32px 40px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0 0 0 100%;
+        }
+
+        .profile-photo {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+        }
+
+        .header-text {
+            flex-grow: 1;
+            z-index: 1;
+        }
+
+        .header-top-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.78rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 8px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 1.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-text h3 {
+            margin: 4px 0 0;
+            font-weight: 400;
+            opacity: 0.95;
+            font-size: 1.08rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.86rem;
+        }
+
+        .contact-item i {
+            color: #ff85c0;
+        }
+
+        .main-content {
+            padding: 32px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.55fr;
+            gap: 30px;
+        }
+
+        .left-column,
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .section h2 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--light-gray);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 45px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .info-list p {
+            margin: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.86rem;
+        }
+
+        .info-list p span:first-child {
+            font-weight: 600;
+            color: var(--dark);
+            min-width: 125px;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        ul {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+            position: relative;
+            list-style-type: none;
+            font-size: 0.86rem;
+        }
+
+        ul li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .skills-group {
+            margin-bottom: 10px;
+        }
+
+        .skills-group-title {
+            font-weight: 600;
+            font-size: 0.84rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: var(--light-gray);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.76rem;
+            font-weight: 500;
+        }
+
+        .skill-tag.highlight {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .objective {
+            background: var(--light);
+            padding: 15px 18px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .objective p {
+            margin: 0;
+            font-size: 0.88rem;
+        }
+
+        .project-card {
+            background: var(--light);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary-light);
+        }
+
+        .project-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-card h3 {
+            margin: 0 0 6px;
+            color: var(--dark);
+            font-size: 0.96rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-card h3 span {
+            font-size: 0.78rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .edu-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 0.82rem;
+        }
+
+        .edu-table th,
+        .edu-table td {
+            border: 1px solid #dee2e6;
+            padding: 5px 8px;
+            text-align: left;
+        }
+
+        .edu-table th {
+            background-color: var(--light);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           MOBILE VIEW MODE (Works on both Laptop & Phone)
+           ========================================================= */
+        body.mobile-stack-mode .scale-wrapper {
+            transform: none !important;
+            height: auto !important;
+            padding: 15px 10px 40px;
+        }
+
+        body.mobile-stack-mode .cv-container {
+            width: 100%;
+            min-width: unset;
+            max-width: 480px;
+            margin: 0 auto;
+            border-radius: 16px;
+        }
+
+        body.mobile-stack-mode .header {
+            flex-direction: column;
+            text-align: center;
+            padding: 26px 20px;
+            gap: 14px;
+        }
+
+        body.mobile-stack-mode .profile-photo {
+            width: 110px;
+            height: 110px;
+        }
+
+        body.mobile-stack-mode .header-top-meta {
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.72rem;
+            gap: 8px;
+        }
+
+        body.mobile-stack-mode .header-text h1 {
+            font-size: 1.45rem;
+        }
+
+        body.mobile-stack-mode .header-text h3 {
+            font-size: 0.92rem;
+        }
+
+        body.mobile-stack-mode .contact-info {
+            justify-content: center;
+            gap: 10px;
+        }
+
+        body.mobile-stack-mode .main-content {
+            grid-template-columns: 1fr;
+            padding: 22px 18px;
+            gap: 20px;
+        }
+
+        body.mobile-stack-mode .info-list p {
+            flex-direction: row;
+            flex-wrap: wrap;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 4px;
+        }
+
+        /* =========================================================
+           PRINT / SAVE AS PDF SETTINGS (Supports Both Views!)
+           ========================================================= */
+        @page {
+            size: A4 portrait;
+            margin: 7mm;
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+            }
+
+            .top-action-bar {
+                display: none !important;
+            }
+
+            .scale-wrapper {
+                transform: none !important;
+                height: auto !important;
+                padding: 0 !important;
+            }
+
+            /* 1. Desktop 2-Column PDF Output */
+            body:not(.mobile-stack-mode) .cv-container {
+                width: 100% !important;
+                min-width: 100% !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+
+            body:not(.mobile-stack-mode) .main-content {
+                grid-template-columns: 1fr 1.55fr !important;
+                padding: 22px 28px !important;
+                gap: 22px !important;
+            }
+
+            body:not(.mobile-stack-mode) .header {
+                flex-direction: row !important;
+                text-align: left !important;
+                padding: 22px 28px !important;
+            }
+
+            /* 2. Mobile 1-Column PDF Output */
+            body.mobile-stack-mode .cv-container {
+                width: 100% !important;
+                max-width: 500px !important;
+                min-width: unset !important;
+                margin: 0 auto !important;
+                box-shadow: none !important;
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 14px !important;
+            }
+
+            body.mobile-stack-mode .header {
+                flex-direction: column !important;
+                text-align: center !important;
+                padding: 24px 20px !important;
+            }
+
+            body.mobile-stack-mode .main-content {
+                grid-template-columns: 1fr !important;
+                padding: 20px !important;
+                gap: 18px !important;
+            }
+
+            .section, .project-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Action Bar (Hidden in PDF/Print) -->
+    <div class="top-action-bar">
+        <button class="action-btn" onclick="saveDesktopPDF()">
+            <i class="fas fa-desktop"></i> Save Desktop PDF (2-Col)
+        </button>
+        <button class="action-btn mobile-pdf" onclick="saveMobilePDF()">
+            <i class="fas fa-mobile-alt"></i> Save Mobile PDF (1-Col)
+        </button>
+        <button class="action-btn secondary" id="toggleViewBtn" onclick="toggleViewMode()">
+            <i class="fas fa-sync-alt"></i> Preview Mobile View
+        </button>
+    </div>
+
+    <div class="scale-wrapper" id="scaleWrapper">
+        <div class="cv-container" id="cvContainer">
+            <!-- HEADER -->
+            <div class="header">
+                <img src="../my-portfolio/assets/photo_2025-07-10_15-37-55.jpg" alt="Profile Photo" class="profile-photo">
+                <div class="header-text">
+                    <div class="header-top-meta">
+                        <span><strong>Role:</strong> Web Developer (Marketing Sites)</span>
+                        <span><strong>Availability:</strong> 20+ hrs/wk (US Hours Aligned)</span>
+                        <span><strong>Mode:</strong> 100% Remote</span>
+                    </div>
+                    <h1>WAI LIN AUNG (Aarush Wyatt)</h1>
+                    <h3>Web Developer (Marketing Sites, Webflow, Technical SEO & CRM Integrations)</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Mandalay, Myanmar (Remote)</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+95 9964087512</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>wailinaungmam2020@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <!-- LEFT COLUMN -->
+                <div class="left-column">
+
+                    <!-- 1. DETAILS & AVAILABILITY -->
+                    <div class="section info-list">
+                        <h2>1. Candidate Details</h2>
+                        <p><span>Full Name:</span> <span>Wai Lin Aung</span></p>
+                        <p><span>Work Setup:</span> <span>100% Remote (High-Speed Fiber + Power Backup)</span></p>
+                        <p><span>Schedule:</span> <span>Part-Time (20 hrs/week)</span></p>
+                        <p><span>Time Zone:</span> <span>Flexible (Aligned with US Morning/Afternoon Hours)</span></p>
+                        <p><span>Onboarding:</span> <span>Immediate</span></p>
+                    </div>
+
+                    <!-- 2. TECHNICAL & MARKETING WEB SKILLS -->
+                    <div class="section">
+                        <h2>2. Core Web Skills</h2>
+                        <div class="skills-group">
+                            <div class="skills-group-title">Frontend & Web Platforms:</div>
+                            <div class="skills">
+                                <div class="skill-tag highlight">HTML5</div>
+                                <div class="skill-tag highlight">CSS3</div>
+                                <div class="skill-tag highlight">JavaScript (ES6+)</div>
+                                <div class="skill-tag highlight">Webflow</div>
+                                <div class="skill-tag highlight">Responsive Design</div>
+                                <div class="skill-tag">WordPress</div>
+                                <div class="skill-tag">Angular</div>
+                                <div class="skill-tag">Bootstrap</div>
+                                <div class="skill-tag">Figma to Web</div>
+                            </div>
+                        </div>
+
+                        <div class="skills-group">
+                            <div class="skills-group-title">Marketing Tech, SEO & Analytics:</div>
+                            <div class="skills">
+                                <div class="skill-tag highlight">Technical SEO</div>
+                                <div class="skill-tag highlight">Google Analytics (GA4)</div>
+                                <div class="skill-tag highlight">Event Tracking</div>
+                                <div class="skill-tag highlight">CRM Integration</div>
+                                <div class="skill-tag">Salesforce / HubSpot / Odoo CRM</div>
+                                <div class="skill-tag">Lead Capture Forms</div>
+                                <div class="skill-tag">Page Speed Optimization</div>
+                                <div class="skill-tag">Metadata & Schema</div>
+                            </div>
+                        </div>
+
+                        <div class="skills-group">
+                            <div class="skills-group-title">DevOps, Backend & AI Workflow:</div>
+                            <div class="skills">
+                                <div class="skill-tag highlight">AI-First Development</div>
+                                <div class="skill-tag highlight">Hosting & DNS Config</div>
+                                <div class="skill-tag">Git & Deployments</div>
+                                <div class="skill-tag">Python</div>
+                                <div class="skill-tag">Java / Spring MVC</div>
+                                <div class="skill-tag">PostgreSQL / MySQL</div>
+                                <div class="skill-tag">Linux / VS Code</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. LANGUAGES & COLLABORATION -->
+                    <div class="section">
+                        <h2>3. Languages & Soft Skills</h2>
+                        <ul>
+                            <li><strong>English:</strong> Fluent / Professional Working Proficiency (Clear written & verbal communication with non-technical marketing teams)</li>
+                            <li><strong>Burmese:</strong> Native Speaker</li>
+                            <li><strong>Key Strengths:</strong> Self-Directed Ownership, Eye for UI/UX Design, Attention to Detail, Priority Management & Fast Turnaround</li>
+                        </ul>
+                    </div>
+
+                    <!-- 4. REMOTE WORK READINESS -->
+                    <div class="section">
+                        <h2>4. Why I Fit Blue Coding</h2>
+                        <ul>
+                            <li><strong>Marketing-Minded Dev:</strong> Deep understanding of how lead forms, tracking events, and CRM pipelines drive conversions.</li>
+                            <li><strong>AI-First Efficiency:</strong> Leverages modern AI coding and debugging workflows to ship clean, responsive pages rapidly.</li>
+                            <li><strong>Reliable Schedule:</strong> Fully committed to a fixed 20 hrs/week schedule during US business hours.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <div class="right-column">
+
+                    <!-- PROFESSIONAL SUMMARY -->
+                    <div class="section objective">
+                        <h2>Professional Profile</h2>
+                        <p>Detail-oriented Web Developer and Enterprise Application Specialist with strong expertise in <strong>HTML5, CSS3, JavaScript, responsive web building, and CRM integrations</strong>. Experienced in turning Figma/design mockups into fast, SEO-optimized marketing pages, configuring DNS/hosting deployments, and connecting web forms to backend CRM workflows. Adopting an <strong>AI-First development approach</strong> to deliver high-converting, pixel-perfect websites for cross-functional marketing teams.</p>
+                    </div>
+
+                    <!-- WORK EXPERIENCE -->
+                    <div class="section">
+                        <h2>Professional Experience</h2>
+                        <div class="project-card">
+                            <h3>Web & Enterprise Application Specialist – MMTech <span>2025 – 2026</span></h3>
+                            <ul>
+                                <li>Built, customized, and maintained responsive client-facing web interfaces and portals using <strong>HTML5, CSS3, JavaScript, and modern CMS/ERP templates</strong>, ensuring seamless mobile and desktop display.</li>
+                                <li>Integrated website lead-capture forms and customer touchpoints directly with <strong>CRM & Sales pipelines</strong>, automating lead routing and data validation.</li>
+                                <li>Applied <strong>on-page technical SEO best practices</strong>—optimizing heading structures (H1-H6), metadata, clean URLs, redirects, and asset loading speeds.</li>
+                                <li>Managed domain <strong>DNS configurations, web hosting environments, and live production deployments</strong> with zero downtime.</li>
+                                <li>Collaborated closely with non-technical stakeholders, marketing teams, and designers to translate business requirements into functional web pages and user workflows.</li>
+                                <li>Conducted cross-browser QA testing, mobile responsiveness fixes, and tracking verification prior to go-live launches.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- WEB & SOFTWARE PROJECTS -->
+                    <div class="section">
+                        <h2>Key Web & Technical Projects</h2>
+                        <div class="project-card">
+                            <h3>Marketing Websites, Web Apps & CRM Projects <span>2024 – 2026</span></h3>
+                            <ul>
+                                <li><strong>Responsive Marketing & Portfolio Websites:</strong> Designed and shipped mobile-first informational websites using HTML5, CSS3, JavaScript, and component-based templates (Webflow/Bootstrap), complete with Google Analytics event tracking and SEO metadata.</li>
+                                <li><strong>Figma-to-Web UI Implementation:</strong> Converted custom UI/UX design systems from Figma into clean, reusable frontend components with high page-speed scores.</li>
+                                <li><strong>Enterprise Web Applications (Angular, Java & Spring MVC):</strong> Developed full-stack Warehouse and Healthcare web portals featuring dynamic dashboards, form validation, and RESTful data integrations.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- EDUCATIONAL BACKGROUND -->
+                    <div class="section">
+                        <h2>Education & Certifications</h2>
+                        <div class="table-responsive">
+                            <table class="edu-table">
+                                <thead>
+                                    <tr>
+                                        <th>Institution / Body</th>
+                                        <th>Year</th>
+                                        <th>Certification / Program</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pearl Yadana IT School</td>
+                                        <td>2025–2026</td>
+                                        <td>Front-End Web Development & Fundamental IT Engineering (FE)</td>
+                                        <td>Completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ITPEC (Myanmar Computer Federation)</td>
+                                        <td>Jan 2025</td>
+                                        <td>Information Technology Passport Examination (IP)</td>
+                                        <td>Certified</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul>
+                            <li><strong>Additional Credentials:</strong> Cambridge TKT Preparation & English Pronunciation Certificates (Strong English communication skills for international remote teams).</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isMobileStack = false;
+
+        function adjustCVScale() {
+            const wrapper = document.getElementById('scaleWrapper');
+            const container = document.getElementById('cvContainer');
+
+            if (isMobileStack || window.innerWidth >= 940) {
+                wrapper.style.transform = 'none';
+                wrapper.style.height = 'auto';
+                return;
+            }
+
+            const availableWidth = window.innerWidth - 16;
+            const scale = availableWidth / 920;
+            wrapper.style.transform = `scale(${scale})`;
+            wrapper.style.height = `${(container.offsetHeight * scale) + 25}px`;
+        }
+
+        function setViewMode(mobileMode) {
+            isMobileStack = mobileMode;
+            document.body.classList.toggle('mobile-stack-mode', isMobileStack);
+            const btn = document.getElementById('toggleViewBtn');
+            if (isMobileStack) {
+                btn.innerHTML = '<i class="fas fa-sync-alt"></i> Preview Desktop View';
+            } else {
+                btn.innerHTML = '<i class="fas fa-sync-alt"></i> Preview Mobile View';
+            }
+            adjustCVScale();
+        }
+
+        function toggleViewMode() {
+            setViewMode(!isMobileStack);
+        }
+
+        function saveDesktopPDF() {
+            setViewMode(false);
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        function saveMobilePDF() {
+            setViewMode(true);
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        window.addEventListener('load', adjustCVScale);
+        window.addEventListener('resize', adjustCVScale);
+    </script>
+
+</body>
+
+</html>
